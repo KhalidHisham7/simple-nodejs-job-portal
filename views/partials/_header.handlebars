@@ -1,0 +1,48 @@
+<nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="/">
+          Jobzella </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      {{#if user}}
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                <i class="material-icons">layers</i> Click me {{user.firstName}}
+              </a>
+              <div class="dropdown-menu">
+                <a href="/dashboard" class="dropdown-item">
+                  {{user.firstName}}'s profile
+                </a>
+                <a href="/auth/logout" class="dropdown-item">
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      {{else}}
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="dropdown nav-item">
+              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                <i class="material-icons">layers</i> Click me
+              </a>
+              <div class="dropdown-menu">
+                <a href="/jobs" class="dropdown-item">
+                  Jobs
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      {{/if}}
+    </div>
+  </nav>
