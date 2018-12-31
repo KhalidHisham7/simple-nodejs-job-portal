@@ -1,0 +1,17 @@
+{
+    "name": "jobzilla",
+    "version": "1.0.0",
+    "description": "App to apply to jobs and go through tests",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "author": "Khalid",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.16.4",
+        "mongoose": "^5.4.1",
+        "passport": "^0.4.0",
+        "passport-google-oauth20": "^1.0.0"
+    }
+}
