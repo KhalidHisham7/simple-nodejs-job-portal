@@ -12,8 +12,9 @@
                         <div class="card-body">
                             {{truncate description 150}}
                             <br>
-                            <a style="margin-right:5px;" href="/jobs/edit/{{id}}">Edit</a>
+                            <a class="card-link" href="/jobs/edit/{{id}}">Edit</a>
                             <a class="card-link" href="/jobs/show/{{id}}">Read more</a>
+                            <a class="card-link" href="/jobs/{{id}}/applications">See Applications</a>
                             <form action="/jobs/{{id}}?_method=DELETE" method="post" id="delete-form">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-danger">Delete</button>

@@ -41,7 +41,41 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
                 job: job
             });
         });
+});
 
+router.get('/application/:id', ensureAuthenticated, (req, res) => {
+    res.render('jobs/application', {
+        id: req.params.id
+    });
+});
+
+router.get('/:id/applications', ensureAuthenticated, (req, res) => {
+    Job.findOne({
+            _id: req.params.id
+        })
+        .then(job => {
+            const applications = job.applications;
+            res.render('jobs/applications', {
+                applications: applications
+            });
+        })
+});
+
+router.post('/application/:id', (req, res) => {
+    Job.findOne({ _id: req.params.id })
+        .then(job => {
+            const newApplication = {
+                applicant: req.user.id,
+                name: req.user.firstName
+            }
+
+            job.applications.unshift(newApplication);
+
+            job.save()
+                .then(job => {
+                    res.redirect(`/jobs/show/${job.id}`);
+                })
+        })
 });
 
 router.put('/:id', (req, res) => {
