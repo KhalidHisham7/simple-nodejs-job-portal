@@ -10,6 +10,7 @@ const passport = require('passport');
 
 // Loading user model
 require('./models/User');
+require('./models/Job');
 
 // Routes loading
 const index = require('./routes/index');
