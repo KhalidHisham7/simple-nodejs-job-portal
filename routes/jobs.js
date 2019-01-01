@@ -44,6 +44,30 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 
 });
 
+router.put('/:id', (req, res) => {
+    Job.findOne({
+            _id: req.params.id
+        })
+        .then(job => {
+            let acceptApplications;
+
+            if (req.body.acceptApplications) {
+                acceptApplications = true;
+            } else {
+                acceptApplications = false;
+            }
+
+            job.title = req.body.title;
+            job.description = req.body.description;
+            job.acceptApplications = acceptApplications;
+
+            job.save()
+                .then(job => {
+                    res.redirect('/dashboard');
+                });
+        });
+});
+
 router.post('/', (req, res) => {
     let acceptApplications;
 
