@@ -1,10 +1,14 @@
 <div class="section section-basic">
     <div class="container">
-        <div class="title">
-            <h1>welcome {{user.firstName}}</h1>
-        </div>
-        <div class="title">
-            <h4>show job</h4>
+        <div class="card card-nav-tabs text-center">
+            <div class="card-header card-header-primary">
+                <h1>A job by {{job.employer.firstName}}</h1>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{job.title}}</h4>
+                <p class="card-text">{{job.description}}</p>
+                <a href="#0" class="btn btn-primary">Apply</a>
+            </div>
         </div>
     </div>
 </div>

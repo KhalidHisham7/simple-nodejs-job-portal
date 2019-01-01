@@ -16,6 +16,18 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/show/:id', (req, res) => {
+    Job.findOne({
+            _id: req.params.id
+        })
+        .populate('employer')
+        .then(job => {
+            res.render('jobs/show', {
+                job: job
+            });
+        })
+});
+
 router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('jobs/add');
 });
