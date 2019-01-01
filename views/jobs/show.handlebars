@@ -7,7 +7,9 @@
             <div class="card-body">
                 <h4 class="card-title">{{job.title}}</h4>
                 <p class="card-text">{{job.description}}</p>
-                {{#if user}}
+                {{#if (equals job.employer.id user.id)}}
+                    <a class="card-link" href="/jobs/{{id}}/applications">See Applications</a>
+                {{else if user}}
                     <a href="/jobs/application/{{job.id}}" class="btn btn-primary">Apply</a>
                 {{else}}
                     <p>Please <a href="/auth/login">login</a> to apply for this job.</p>
