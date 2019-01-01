@@ -1,10 +1,28 @@
 <div class="section section-basic">
     <div class="container">
-        <div class="title">
-            <h1>welcome {{user.firstName}}</h1>
-        </div>
-        <div class="title">
-            <h4>Your posted jobs</h4>
+        <div class="row">
+        {{#each jobs}}
+            <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-text card-header-primary">
+                            <div class="card-text">
+                            <h4 class="card-title">{{title}}</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {{truncate description 150}}
+                            <br>
+                            <a style="margin-right:5px;" href="/jobs/edit/{{id}}">Edit</a>
+                            <a class="card-link" href="/jobs/show/{{id}}">Read more</a>
+                            <form action="/jobs/{{id}}" method="post" id="delete-form">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        {{else}}
+            <p>You haven't posted any jobs yet :(</p>
+        {{/each}}
         </div>
     </div>
 </div>
