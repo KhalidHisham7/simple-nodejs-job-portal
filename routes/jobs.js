@@ -32,8 +32,16 @@ router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('jobs/add');
 });
 
-router.get('/edit', ensureAuthenticated, (req, res) => {
-    res.render('jobs/edit');
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+    Job.findOne({
+            _id: req.params.id
+        })
+        .then(job => {
+            res.render('jobs/edit', {
+                job: job
+            });
+        });
+
 });
 
 router.post('/', (req, res) => {
