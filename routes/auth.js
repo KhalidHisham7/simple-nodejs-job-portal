@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 
 router.get('/google', passport.authenticate('google', {
     scope: [
@@ -24,6 +25,14 @@ router.get('/verify', (req, res) => {
     } else {
         console.log('not authorized');
     }
+});
+
+router.get('/login', ensureGuest, (req, res) => {
+    res.render('auth/login', { layout: 'auth' });
+});
+
+router.get('/register', ensureGuest, (req, res) => {
+    res.render('auth/register', { layout: 'auth' });
 });
 
 router.get('/logout', (req, res) => {
