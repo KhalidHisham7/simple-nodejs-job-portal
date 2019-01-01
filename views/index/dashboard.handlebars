@@ -14,7 +14,8 @@
                             <br>
                             <a style="margin-right:5px;" href="/jobs/edit/{{id}}">Edit</a>
                             <a class="card-link" href="/jobs/show/{{id}}">Read more</a>
-                            <form action="/jobs/{{id}}" method="post" id="delete-form">
+                            <form action="/jobs/{{id}}?_method=DELETE" method="post" id="delete-form">
+                                <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </div>

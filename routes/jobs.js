@@ -68,6 +68,13 @@ router.put('/:id', (req, res) => {
         });
 });
 
+router.delete('/:id', (req, res) => {
+    Job.deleteOne({ _id: req.params.id })
+        .then(() => {
+            res.redirect('/dashboard');
+        });
+});
+
 router.post('/', (req, res) => {
     let acceptApplications;
 
