@@ -20,6 +20,11 @@ const jobs = require('./routes/jobs');
 // Load keys
 const keys = require('./config/keys');
 
+// handlebars helpers
+const {
+    truncate
+} = require('./helpers/hbs');
+
 // Connecting to database
 mongoose.connect(keys.mongoURI, {
         useNewUrlParser: true
@@ -33,6 +38,9 @@ const app = express();
 
 // Handlebars middleware
 app.engine('handlebars', exphbs({
+    helpers: {
+        truncate: truncate
+    },
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
