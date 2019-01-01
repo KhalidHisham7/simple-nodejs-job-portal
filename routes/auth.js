@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const passport = require('passport');
+
+// Lodaing the user model
+require('../models/User');
+const User = mongoose.model('users');
+
 const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 
 router.get('/google', passport.authenticate('google', {
@@ -55,7 +62,35 @@ router.post('/register', (req, res) => {
             password2: req.body.password2
         });
     } else {
-        res.send('passed');
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                if (user) {
+                    errors.push({ text: 'Check your credentials.' });
+                    res.render('auth/register', { layout: 'auth', errors: errors });
+                } else {
+                    const newUser = new User({
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        email: req.body.email,
+                        password: req.body.password
+                    })
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newUser.password, salt, (err, hash) => {
+                            if (err) throw err;
+                            newUser.password = hash;
+
+                            newUser.save()
+                                .then(user => {
+                                    res.redirect('/auth/login');
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    return;
+                                })
+                        });
+                    });
+                }
+            });
     }
 });
 
