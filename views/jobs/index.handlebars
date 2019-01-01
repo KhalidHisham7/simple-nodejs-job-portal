@@ -6,5 +6,35 @@
         <div class="title">
             <h4>all jobs</h4>
         </div>
+
+        <div class="row">
+            {{#each jobs}}
+
+            <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-text card-header-primary">
+                            <div class="card-text">
+                            <h4 class="card-title">{{title}} by 
+                                {{#if employer.image}}
+                                    <a class="navbar-brand">
+                                        <div class="logo-image">
+                                            <img src="{{employer.image}}" class="img-fluid">
+                                        </div>
+                                        </a>
+                                {{/if}}
+                                {{employer.firstName}}</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {{description}}
+                            <br>
+                            <a class="card-link" href="/jobs/show/{{id}}">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <p>No jobs :)</p>
+            {{/each}}
+        </div>
     </div>
 </div>

@@ -7,7 +7,13 @@ const User = mongoose.model('users');
 
 
 router.get('/', (req, res) => {
-    res.render('jobs/index');
+    Job.find({ acceptApplications: true })
+        .populate('employer')
+        .then(jobs => {
+            res.render('jobs/index', {
+                jobs: jobs
+            });
+        });
 });
 
 router.get('/add', ensureAuthenticated, (req, res) => {
