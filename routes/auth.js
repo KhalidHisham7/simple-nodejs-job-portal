@@ -42,6 +42,14 @@ router.get('/register', ensureGuest, (req, res) => {
     res.render('auth/register', { layout: 'auth' });
 });
 
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/auth/login',
+        failureFlash: 'true'
+    })(req, res, next);
+});
+
 router.post('/register', (req, res) => {
     let errors = [];
 

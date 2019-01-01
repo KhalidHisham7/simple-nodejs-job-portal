@@ -1,11 +1,36 @@
+const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const keys = require('./keys');
 
 const User = mongoose.model('users');
 
 module.exports = function(passport) {
-    passport.use(
+    // Local strategy
+    passport.use('local',
+        new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+            User.findOne({
+                email: email
+            }).then(user => {
+                if (!user) {
+                    return done(null, false);
+                }
+
+                bcrypt.compare(password, user.password, (err, isMatch) => {
+                    if (err) throw err;
+                    if (isMatch) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                })
+            })
+        })
+    );
+
+    // Google strategy
+    passport.use('google',
         new GoogleStrategy({
             clientID: keys.googleClientID,
             clientSecret: keys.googleClientSecret,

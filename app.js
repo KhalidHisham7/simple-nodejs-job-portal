@@ -4,14 +4,12 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 
 // Loading user model
 require('./models/User');
-
-// Passport config
-require('./config/passport')(passport);
 
 // Routes loading
 const index = require('./routes/index');
@@ -51,13 +49,19 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.use(flash());
+
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Passport config
+require('./config/passport')(passport);
+
 // Setting global varibales
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
+    res.locals.error = req.flash('error');
     next();
 });
 
