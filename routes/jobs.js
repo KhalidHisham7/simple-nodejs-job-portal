@@ -32,9 +32,10 @@ router.get('/show/:id', (req, res) => {
             _id: req.params.id
         })
         .populate('employer')
+        .populate('applications')
         .then(job => {
             res.render('jobs/show', {
-                job: job
+                job: job,
             });
         })
 });
@@ -71,24 +72,6 @@ router.get('/:id/applications', ensureAuthenticated, (req, res) => {
             });
         })
 });
-
-// router.post('/application/:id', (req, res) => {
-//     Job.findOne({ _id: req.params.id })
-//         .then(job => {
-//             const newApplication = {
-//                 applicant: req.user.id,
-//                 name: req.user.firstName
-//             }
-
-//             job.applications.unshift(newApplication);
-
-//             job.save()
-//                 .then(job => {
-//                     res.redirect(`/jobs/show/${job.id}`);
-//                 })
-//         })
-// });
-
 
 router.post('/application/:id', ensureAuthenticated, uploadCv.single('cv'), (req, res) => {
     Job.findOne({ _id: req.params.id })
