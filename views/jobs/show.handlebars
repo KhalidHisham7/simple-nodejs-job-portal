@@ -9,7 +9,7 @@
                 <p class="card-text">{{job.description}}</p>
                 {{#if (equals job.employer.id user.id)}}
                     <a class="card-link" href="/jobs/{{id}}/applications">See Applications</a>
-                {{else if (equals job.applications.1.applicant user.id)}}
+                {{else if (equals job.applications.0.applicant user.id)}}
                     <p>You already applied for this job</p>
                 {{else if user}}
                     <a href="/jobs/application/{{job.id}}" class="btn btn-primary">Apply</a>
