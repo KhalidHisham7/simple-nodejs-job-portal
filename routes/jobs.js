@@ -4,6 +4,17 @@ const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 const mongoose = require('mongoose');
 const Job = mongoose.model('jobs');
 const User = mongoose.model('users');
+var multer = require('multer')
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/uploads/cvs')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + '-' + Date.now() + '.pdf')
+    }
+});
+var uploadCv = multer({ dest: 'public/uploads/cvs', storage: storage });
 
 
 router.get('/', (req, res) => {
@@ -61,20 +72,44 @@ router.get('/:id/applications', ensureAuthenticated, (req, res) => {
         })
 });
 
-router.post('/application/:id', (req, res) => {
+// router.post('/application/:id', (req, res) => {
+//     Job.findOne({ _id: req.params.id })
+//         .then(job => {
+//             const newApplication = {
+//                 applicant: req.user.id,
+//                 name: req.user.firstName
+//             }
+
+//             job.applications.unshift(newApplication);
+
+//             job.save()
+//                 .then(job => {
+//                     res.redirect(`/jobs/show/${job.id}`);
+//                 })
+//         })
+// });
+
+
+router.post('/application/:id', ensureAuthenticated, uploadCv.single('cv'), (req, res) => {
     Job.findOne({ _id: req.params.id })
         .then(job => {
-            const newApplication = {
-                applicant: req.user.id,
-                name: req.user.firstName
-            }
-
-            job.applications.unshift(newApplication);
-
-            job.save()
-                .then(job => {
-                    res.redirect(`/jobs/show/${job.id}`);
+            if (job) {
+                job.applications.push({
+                    applicant: req.user.id,
+                    name: req.user.firstName,
+                    cv: {
+                        path: req.file.path.slice(7),
+                        size: req.file.size,
+                    },
+                });
+                job.save().then(job => {
+                    res.redirect('/jobs/show/' + req.params.id);
                 })
+            }
+        }).catch(err => {
+            console.log(err);
+            req.flash('error', 'Something Wrong Happened');
+            res.redirect('/jobs/show/' + req.params.id);
         })
 });
 
@@ -122,7 +157,11 @@ router.post('/', (req, res) => {
         title: req.body.title,
         description: req.body.description,
         acceptApplications: acceptApplications,
-        employer: req.user.id
+        employer: {
+            _id: req.user.id,
+            name: req.user.firstName,
+            email: req.user.email,
+        }
     }
 
     new Job(newJob)

@@ -3,24 +3,8 @@
         <div class="title">
             <h4>Apply for this job</h4>
         </div>
-        <form action="/jobs/application/{{id}}" method="post">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" name="title" class="form-control" placeholder="Enter title">
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea name="description" class="form-control"></textarea>
-            </div>
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" name="acceptApplications" type="checkbox">
-                    Do you want to accept applications? Check if yes
-                    <span class="form-check-sign">
-                        <span class="check"></span>
-                    </span>
-                </label>
-            </div>
+        <form action="/jobs/application/{{id}}" method="post" enctype="multipart/form-data">
+            <input type="file" name="cv">
             <button type="submit" class="btn btn-primary">Add job</button>
         </form>
     </div>
