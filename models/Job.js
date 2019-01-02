@@ -19,6 +19,10 @@ const JobSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'users'
         },
+        examAssigned: {
+            type: Boolean,
+            default: false
+        },
         name: {
             type: String
         },

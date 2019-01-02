@@ -1,0 +1,83 @@
+<div class="section section-basic">
+    <div class="container">
+        <div class="title">
+            <h1>welcome {{user.firstName}}</h1>
+        </div>
+        <div class="title">
+            <h4>Create the test you wish for the applicant.</h4>
+        </div>
+        <div class="title">
+            <h4>First question</h4>
+        </div>
+        <form action="/exams" method="post">
+            <input type="hidden" name="user" value="{{applicant}}">
+            <div class="form-group">
+                <label for="question1">Question 1</label>
+                <input type="text" name="question1" class="form-control" placeholder="Enter your question">
+            </div>
+            <div class="form-group">
+                <label for="ra">Right answer</label>
+                <input type="text" name="ra1" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa1">Wrong answer 1</label>
+                <input type="text" name="wa11" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa2">Wrong answer 2</label>
+                <input type="text" name="wa21" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa3">Wrong answer 3</label>
+                <input type="text" name="wa31" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="title">
+                <h4>Second question</h4>
+            </div>
+            <div class="form-group">
+                <label for="question2">Question 2</label>
+                <input type="text" name="question2" class="form-control" placeholder="Enter your question">
+            </div>
+            <div class="form-group">
+                <label for="ra">Right answer</label>
+                <input type="text" name="ra2" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa1">Wrong answer 1</label>
+                <input type="text" name="wa12" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa2">Wrong answer 2</label>
+                <input type="text" name="wa22" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa3">Wrong answer 3</label>
+                <input type="text" name="wa32" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="title">
+                <h4>Third question</h4>
+            </div>
+            <div class="form-group">
+                <label for="question3">Question 3</label>
+                <input type="text" name="question3" class="form-control" placeholder="Enter your question">
+            </div>
+            <div class="form-group">
+                <label for="ra">Right answer</label>
+                <input type="text" name="ra3" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa1">Wrong answer 1</label>
+                <input type="text" name="wa13" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa2">Wrong answer 2</label>
+                <input type="text" name="wa23" class="form-control" placeholder="Enter your answer">
+            </div>
+            <div class="form-group">
+                <label for="wa3">Wrong answer 3</label>
+                <input type="text" name="wa33" class="form-control" placeholder="Enter your answer">
+            </div>
+            <button type="submit" class="btn btn-primary">Create Test</button>
+        </form>
+    </div>
+</div>

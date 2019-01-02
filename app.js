@@ -12,11 +12,13 @@ const passport = require('passport');
 // Loading user model
 require('./models/User');
 require('./models/Job');
+require('./models/Exam');
 
 // Routes loading
 const index = require('./routes/index');
 const auth = require('./routes/auth');
 const jobs = require('./routes/jobs');
+const exams = require('./routes/exams');
 
 // Load keys
 const keys = require('./config/keys');
@@ -43,6 +45,9 @@ app.engine('handlebars', exphbs({
         truncate: truncate,
         equals: function(val1, val2) {
             return val1 == val2;
+        },
+        not: function(val) {
+            return !val;
         }
     },
     defaultLayout: 'main'
@@ -88,6 +93,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/jobs', jobs);
+app.use('/exams', exams);
 
 const port = 5000;
 

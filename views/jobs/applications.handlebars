@@ -10,7 +10,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="/{{cv.path}}" class="card-link ml-0 mb-0"> <i class="fas fa-file-pdf"></i> Download CV</a>
+                            <a href="/{{cv.path}}" class="card-link ml-0 mb-">Download CV</a>
+                            {{#if (not examAssigned)}}
+                                <a href="/exams/{{applicant}}" class="card-link">Assign Exam</a>
+                            {{else}}
+                                <a href="/exams/result" class="card-link">See exam result</a>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
