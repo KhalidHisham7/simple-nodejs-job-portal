@@ -1,5 +1,5 @@
 {
-    "name": "jobzilla",
+    "name": "job-zilla",
     "version": "1.0.0",
     "description": "App to apply to jobs and go through tests",
     "main": "app.js",
